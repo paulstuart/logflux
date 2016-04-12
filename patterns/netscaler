@@ -1,0 +1,29 @@
+DASHED \b[0-9A-Za-z_-]+\b
+NS_TS %{DATE_US}:%{TIME} %{TIMEZONE}
+NS_LOG %{SYSLOGTIMESTAMP} %{IPORHOST:IP}  %{NS_TS} %{IPORHOST:Host} %{DASHED:EventID} : %{WORD:Grouping} %{WORD:Kind} %{NUMBER:PID} %{NUMBER:huh} :  %{GREEDYDATA:Msg}
+NS_CMD User %{WORD:NSUser} - Remote_ip %{IPV4:RemoteIP} - Command %{GREEDYDATA:Cmd} - Status %{QUOTEDSTRING:Status}
+TEXT [a-zA-Z0-9_]+
+ALPHA [a-zA-Z]+
+DIGITS [0-9]+
+ANUM [a-zA-Z0-9]+
+#NS_TEST %{ALPHA:type}_%{ALPHA:Group}_NSSVC_HTTP_%{IPORHOST:HostIP}:%{DIGITS:HostPort}(%{ANUM:Grp}?%{ANUM:Name}?{DIGITS:SPort}) - State %{GREEDYDATA:State}
+####NS_HTTP %{WORD:Notify} %{TEXT:What}_%{IPORHOST:HostIP}:%{DIGITS:HostPort}(%{ANUM:Grp}?%{ANUM:Name}?{DIGITS:SPort}) - State %{GREEDYDATA:State}
+
+
+#NS_LOG %{SYSLOGTIMESTAMP} %{IPORHOST:IP}  %{DATE_US}:%{TIME} %{TIMEZONE} %{IPORHOST:Host} %{DASHED:EventID} : %{WORD:Grouping} %{WORD:Kind} %{NUMBER:PID} %{NUMBER:huh} :  %{GREEDYDATA:Msg}
+
+#NS_HTTP %{WORD:What} %{TEXT:type}_%{IPORHOST:HostIP}:%{DIGITS:HostPort}(%{ANUM:Grp}?%{ANUM:Name}?{DIGITS:SPort}) - State %{GREEDYDATA:State}
+
+#NS_HTTP %{WORD:What} "%{TEXT:type}_%{IPORHOST:HostIP}:%{DIGITS:HostPort}.*" - State %{GREEDYDATA:State}
+#NS_HTTP %{WORD:What} "%{TEXT:type}_%{IPORHOST:HostIP}:.*" - State %{GREEDYDATA:State}
+#NS_HTTP %{WORD:What} %{QUOTEDSTRING:quotes} - State %{GREEDYDATA:State}
+#NS_HTTP %{WORD:What} "%{DATA:quotes}" - State %{GREEDYDATA:State}
+#NS_HTTP %{WORD:What} "%{ALPHA:a1}_%{ALPHA:a2}_%{ALPHA:a3}_%{ALPHA:a4}_%{IPORHOST:HostIP}:.*" - State %{GREEDYDATA:State}
+#NS_HTTP %{WORD:What} "%{GREEDYDATA:a1}_%{IPORHOST:HostIP}%{GREEDYDATA:a2}" - State %{GREEDYDATA:State}
+
+# "server_serviceGroup_NSSVC_HTTP_10.100.129.27:8080(NRT33?NRT33003?8080)"
+NS_HTTP %{WORD:What} "%{GREEDYDATA:a1}_%{IPV4:HostIP}:%{DIGITS:HostPort}%{GREEDYDATA:a1}" - State %{GREEDYDATA:State}
+#NS_HTTP %{WORD:What} .* - State %{GREEDYDATA:State}
+
+NS_TCP %{WORD:What} %{TEXT:type}_%{ALPHA:Group}_NSSVC_HTTP_%{IPORHOST:HostIP}:%{DIGITS:HostPort}(%{ANUM:Grp}?%{ANUM:Name}?{DIGITS:SPort}) - State %{GREEDYDATA:State}
+WTF %{SYSLOGTIMESTAMP} %{IPORHOST:IP} %{GREEDYDATA:Msg}

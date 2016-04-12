@@ -22,3 +22,7 @@ _testmain.go
 *.exe
 *.test
 *.prof
+
+config.json
+config.yaml
+config.cfg
