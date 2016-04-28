@@ -10,8 +10,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/paulstuart/grok"
 	"github.com/spf13/viper"
+	"github.com/vjeantet/grok"
 )
 
 type Meta struct {
@@ -30,18 +30,19 @@ type Translate struct {
 }
 
 var (
-	debug      bool
-	listen     bool
-	file       string
-	directory  = "patterns"
-	tcp        = 514
-	udp        = 514
-	ip         = "0.0.0.0"
+	debug     bool
+	listen    bool
+	file      string
+	directory = "patterns"
+	tcp       = syslogPort
+	udp       = syslogPort
+	ip        = "0.0.0.0"
+	filters   []Meta
+	batchSize = 64
+	queueSize = 8192
+	period    = 60
+
 	ErrNoMatch = fmt.Errorf("No match")
-	filters    []Meta
-	batchSize  = 64
-	queueSize  = 8192
-	period     = 60
 )
 
 const (
